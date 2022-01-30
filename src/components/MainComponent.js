@@ -8,6 +8,7 @@ import Home from './HomeComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Directory from './DirectoryComponent';
+import CampsiteInfo from './CampsiteInfoComponent';
 //IMPORT OBJECTS/DATA
 import { CAMPSITES } from '../shared/campsites';
 import {PARTNERS} from '../shared/partners';
@@ -36,8 +37,18 @@ class Main extends Component {
                     promotion={this.state.promotions.filter(promotion => promotion.featured)[0]}
                     partner={this.state.partners.filter(partner => partner.featured)[0]}
                 />
-            );
+            ); 
         };
+
+        //MAKE DIRECTORY CAMPSITE DETAILS DISPLAY DYNAMICALLY
+        const CampsiteWithId = ({match}) => {
+            return (
+                <CampsiteInfo 
+                    campsite={this.state.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
+                    comments={this.state.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
+                />
+            );
+        };   
 
         //ROUTING FOR NAVIGATION MENU
         return (
@@ -46,6 +57,7 @@ class Main extends Component {
                 <Switch>
                     <Route path='/home' component={HomePage} />
                     <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites} />} />
+                    <Route path='/directory/:campsiteId' component={CampsiteWithId} />
                     <Route exact path='/aboutus' render={() => <About partners={this.state.partners} />} />
                     <Route exact path='/contactus' component={Contact} />
                     <Redirect to='/home' />

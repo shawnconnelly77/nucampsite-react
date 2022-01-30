@@ -1,3 +1,4 @@
+//IMPORT DEPENDENCIES
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
@@ -29,13 +30,14 @@ function RenderComments({comments}) {
     return <div />;
 }
 
+//RENDER CAMPSITE DETAILS
 function CampsiteInfo(props) {
     if (props.campsite) {
         return (
             <div className="container">
                 <div className="row">
                     <RenderCampsite campsite={props.campsite} />
-                    <RenderComments comments={props.campsite.comments} />
+                    <RenderComments comments={props.comments} />
                 </div>
             </div>
         );
